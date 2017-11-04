@@ -23,30 +23,40 @@ module.exports = {
 		rules: [{
 			test: /\.css/, //正则表达式匹配
 			use: ['style-loader', 'css-loader'] //用于处理匹配到的文件的模块。
-		}]
+		}, {
+			test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+			loader: 'url-loader?limit=10000',
+		}, ]
 
 
+	},
+	resolve: {
+		//别名。'@/a.js';
+		alias: {
+			'@': path.resolve(__dirname, './src'),
+			'img': path.resolve(__dirname, './images')
+		}
 	},
 	plugins: [
 		//此插件用于提取公共代码。方便缓存什么 的。
 		//经过提取公共部分。生成的index和index1.js文件明显小了很多。
 		//但是引用的时候也要单独注入进去。
-		 new webpack.optimize.CommonsChunkPlugin({
-		 	name:'common',//名字
-		 	minChunks: 2, //至少几个公共的。
-		 }),
-		 //多入口注入多页应用的方法。https://segmentfault.com/q/1010000009810148
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'common', //名字
+			minChunks: 2, //至少几个公共的。
+		}),
+		//多入口注入多页应用的方法。https://segmentfault.com/q/1010000009810148
 		new HtmlWebpackPlugin({
-			filename:'index.html',
+			filename: 'index.html',
 			template: './index.html', //使用的模板
 			hash: true, //文件后缀加上哈希版本号
-			chunks: ['common','index']//表示注入哪些文件。
+			chunks: ['common', 'index'] //表示注入哪些文件。
 		}),
 		new HtmlWebpackPlugin({
-			filename:'index1.html',
+			filename: 'index1.html',
 			template: './index1.html', //使用的模板
 			hash: true, //文件后缀加上哈希版本号
-			chunks: ['common','index1']
+			chunks: ['common', 'index1']
 		}),
 
 

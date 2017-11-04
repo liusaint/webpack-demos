@@ -1,3 +1,13 @@
 body{
 	background:#ccc;
 }
+.bg{
+	background:url(../images/cat.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+	height: 300px;
+}
+
+.mt50{
+	margin-top: 50px;
+}
