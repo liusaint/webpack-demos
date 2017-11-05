@@ -10,7 +10,8 @@ module.exports = {
 	//多入口.[name]指提这个对象的键。
 	entry: {
 		index: './src/index.js',
-		index1: './src/index1.js'
+		index1: './src/index1.js',
+		// 'a/index1': './src/index1.js',//这种写法会生成文件夹
 	},
 	// entry: ['./src/index.js','./src/index1.js'],//这种传递方法会生成一个main.js
 
