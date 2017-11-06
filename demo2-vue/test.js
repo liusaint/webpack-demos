@@ -9,3 +9,5 @@ console.log(path.resolve(__dirname,'./build/build.js'));// D:\github\webpack-dem
 //path.join相当于是从第一个参数开始，一个参数一个参数的计算下一级的结果。
 console.log(path.join(__dirname, '../', 'src'))
 console.log(path.join(__dirname, '../', '../src'))
+//path.posix有path所有方法。
+console.log(path.posix.join(__dirname,'./'));
