@@ -20,6 +20,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
+  //http://www.cnblogs.com/ihardcoder/p/5623411.html 关于chunkhash hash contenthash。这篇文章写得不错。
+  //chunkhash相当于是按模块分的。生成的不同文件hash可能不一样。
+  //hash生成的文件名hash可能是一样的。
+  //contenthash一般用于css。
+  //
+  //注意filename中其实可能是路径。所以生成的不同类型的文件才会在不同的文件夹中。
+  //id。
   output: {
     path: config.build.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
@@ -27,10 +34,12 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
+    // 可识别的变量。类似全局变量。
     new webpack.DefinePlugin({
       'process.env': env
     }),
     // UglifyJs do not support ES6+, you can also use babel-minify for better treeshaking: https://github.com/babel/minify
+    // UglifyJs不支持es6+。
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
@@ -38,6 +47,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       sourceMap: true
     }),
     // extract css into its own file
+    // css文件单独拎出来。
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')
     }),
@@ -51,6 +61,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
+    // 注入html
     new HtmlWebpackPlugin({
       filename: config.build.index,
       template: 'index.html',
