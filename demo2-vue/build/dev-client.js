@@ -5,7 +5,7 @@
 require('eventsource-polyfill')
 //热刷新中间件有一部分是要加载到客户端使用。
 var hotClient = require('webpack-hot-middleware/client?noInfo=true&reload=true')
-//订单刷新事件？
+//页面刷新事件？
 hotClient.subscribe(function (event) {
   if (event.action === 'reload') {
     window.location.reload()

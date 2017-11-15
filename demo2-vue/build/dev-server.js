@@ -19,6 +19,7 @@ const port = process.env.PORT || config.dev.port
 const autoOpenBrowser = !!config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
+// 代理请求。
 const proxyTable = config.dev.proxyTable
 
 const app = express()
@@ -49,6 +50,7 @@ compiler.plugin('compilation', function (compilation) {
 app.use(hotMiddleware)
 
 // proxy api requests
+// 代理api请求
 Object.keys(proxyTable).forEach(function (context) {
   let options = proxyTable[context]
   if (typeof options === 'string') {
@@ -58,7 +60,8 @@ Object.keys(proxyTable).forEach(function (context) {
 })
 
 // handle fallback for HTML5 history API
-app.use(require('connect-history-api-fallback')())
+// https://github.com/bripkens/connect-history-api-fallback
+app.use(require('connect-history-api-fallback')({verbose: true}))
 
 // serve webpack bundle output
 app.use(devMiddleware)
