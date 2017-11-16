@@ -30,6 +30,7 @@ const devMiddleware = require('webpack-dev-middleware')(compiler, {
   quiet: true
 })
 
+
 const hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: false,
   heartbeat: 2000
@@ -61,7 +62,14 @@ Object.keys(proxyTable).forEach(function (context) {
 
 // handle fallback for HTML5 history API
 // https://github.com/bripkens/connect-history-api-fallback
-app.use(require('connect-history-api-fallback')({verbose: true}))
+// 单页应用通常从一个页面进入。
+app.use(require('connect-history-api-fallback')({
+  verbose: true,
+  index: '/index.html',
+  rewrites:[
+    { from: /\/b/, to: '/index1.html'}
+  ]
+}))
 
 // serve webpack bundle output
 app.use(devMiddleware)
